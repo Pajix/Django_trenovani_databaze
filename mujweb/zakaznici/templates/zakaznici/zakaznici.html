@@ -11,14 +11,36 @@
 </head>
 
 
-
 <body>
 
-<h1>Vložit zákazníka do databaze</h1>
+<section class="container_formular">
+
+    <h1>Vložit zákazníka do databaze</h1>
+
+    <form method="POST" action="/">
+        <!--Vložení csrf tokuneu pro zabezpečení formuláře -->
+        {% csrf_token %}
 
 
+        <!-- Vypsání jednotlivých vstupů z formuláře pomocí smyčky for -->
+        {% for one_field in zakazniciForm %}
+
+        <div class="form-group">
+            {{ one_field }}
+        </div>
+
+        {% endfor %}
+
+        <button type="submit">Odeslat</button>
+
+    </form>
+
+</section>
 
 
+<section class="container_tabulka">
+
+</section>
 
 
 </body>
