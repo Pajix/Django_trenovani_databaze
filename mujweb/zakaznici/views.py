@@ -31,8 +31,11 @@ def zakaznici(request):
     # vytvoříme formular na zaklade imporotvaneho forms.py
     formular = ZakazniciForm()
 
+    context = {"zakazniciForm": formular,
+               "zakaznici": Zakaznici.objects.all()}
+
     # vracíme html a do html posíláme náš vytvořený formulář, který v html umístíme
-    return render(request, "zakaznici/zakaznici.html", {"zakazniciForm": formular})
+    return render(request, "zakaznici/zakaznici.html", context)
 
 
 def thank_you(request):

@@ -12,7 +12,7 @@ class ZakazniciForm(forms.Form):
         return int(id_sap)
 
     # vytvoříme formular s jednotlivymi vstupy
-    id_sap = forms.IntegerField(label="ID SAP", widget=forms.TextInput(attrs={"placeholder": "Zadejte 10 číslic",
+    id_sap = forms.IntegerField(label="ID SAP", widget=forms.TextInput(attrs={"placeholder": "ID SAP = Zadejte 10 číslic",
                                                                               "pattern": "\d{10}",
                                                                               "title": "Zadejte přesně 10 číslic"
                                                                               }))
