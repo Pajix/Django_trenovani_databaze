@@ -8,21 +8,17 @@
     <title>Zákazníci</title>
     <link rel="stylesheet" href="{% static 'zakaznici/zakaznici.css' %}">
     <!-- Leaflet CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
-
 
 <body>
     <div class="top-container">
         <section class="container_formular">
             <h1>Vložit zákazníka do databáze</h1>
             <form method="POST" action="/" id="zakaznik-form">
-                <!--Vložení csrf tokuneu pro zabezpečení formuláře -->
                 {% csrf_token %}
-                <!-- Vypsání jednotlivých vstupů z formuláře pomocí smyčky for -->
                 {% for one_field in zakazniciForm %}
                 <div class="form-group">
                     {{ one_field }}
@@ -33,14 +29,12 @@
         </section>
 
         <section class="container_stred">
-
         </section>
 
         <section class="container_maps">
             <div id="map"></div>
         </section>
     </div>
-
 
     <!-- Sekce s tabulkou zákazníků -->
     <section class="container_tabulka">
@@ -49,6 +43,7 @@
             <table class="zakaznici-table">
                 <thead>
                     <tr>
+                        <th id="hlavicka_pocet">Počet</th>
                         <th id="hlavicka_id">ID SAP</th>
                         <th id="hlavicka_nazev">Název zákazníka</th>
                         <th id="hlavicka_mesto">Město</th>
@@ -60,7 +55,8 @@
                 </thead>
                 <tbody>
                     {% for zakaznik in zakaznici %}
-                    <tr>
+                    <tr data-index="{{ forloop.counter0 }}">
+                        <td id="bunka_pocet"></td> <!-- Tato buňka bude doplněna JavaScriptem -->
                         <td>{{ zakaznik.id_sap }}</td>
                         <td>{{ zakaznik.nazev }}</td>
                         <td>{{ zakaznik.mesto }}</td>
@@ -77,10 +73,66 @@
         {% endif %}
     </section>
 
-<script src="{% static 'zakaznici/zakaznici.js' %}"></script>
+    <!-- Vložíme data zákazníků do JavaScriptu -->
+    <script>
+        const zakazniciData = [
+            {% for zakaznik in zakaznici %}
+            {
+                'id_sap': '{{ zakaznik.id_sap }}',
+                'nazev': '{{ zakaznik.nazev }}',
+                'latitude': {{ zakaznik.latitude }},
+                'longitude': {{ zakaznik.longitude }}
+            }
+            {% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+    </script>
 
+    <!-- Přidáme JavaScript pro mapu a klik na řádky -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializace mapy
+            const map = L.map('map').setView([50.0755, 14.4378], 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            let currentMarker;
+
+            // Definice zelené ikony
+            const greenIcon = L.icon({
+                iconUrl: '{% static "zakaznici/icons/icon_shop.png" %}', // cesta k tvé ikonce
+                iconSize: [30, 30],
+                iconAnchor: [1, 1],
+                popupAnchor: [14, 1]
+            });
+
+            // Přidání posluchačů na řádky tabulky
+            document.querySelectorAll('table.zakaznici-table tbody tr').forEach(function(row) {
+                row.addEventListener('click', function() {
+                    const index = parseInt(this.dataset.index);
+                    const zakaznik = zakazniciData[index];
+
+                    if (zakaznik.latitude && zakaznik.longitude) {
+                        // Odstranit starý marker
+                        if (currentMarker) {
+                            map.removeLayer(currentMarker);
+                        }
+                        // Přidat nový marker
+                        currentMarker = L.marker([zakaznik.latitude, zakaznik.longitude], {icon: greenIcon})
+                            .addTo(map)
+                            .bindPopup(zakaznik.nazev)
+                            .openPopup();
+
+                        // Přesunout mapu na novou pozici
+                        map.setView([zakaznik.latitude, zakaznik.longitude], 15);
+                    }
+                });
+            });
+        });
+    </script>
+
+ <script src="{% static 'zakaznici/zakaznici.js' %}"></script>
 </body>
-
-
 
 </html>

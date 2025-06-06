@@ -5,30 +5,17 @@ document.getElementById('zakaznik-form').addEventListener('keydown', function(e)
     }
 });
 
-// Validace před odesláním (volitelné)
-//document.getElementById('submit-btn').addEventListener('click', function(e) {
-//    const form = document.getElementById('zakaznik-form');
-//    if (!form.checkValidity()) {
-//        e.preventDefault();
-//        alert('Vyplňte prosím všechna povinná pole správně.');
-//    }
-//});
-
+// tato část slouží k vložení čísel do první buňky podle počtu řádků
 document.addEventListener('DOMContentLoaded', function() {
-    // inicializace mapy
-    var map = L.map('map').setView([50.0755, 14.4378], 13); // nastav výchozí souřadnice (např. Praha)
-
-    // Přidej tile layer (mapové dlaždice)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    // Příklad přidání markeru (například z dat zákazníka)
-    // Můžeš načíst data z Django a dynamicky je přidat
-    // Například:
-    var customerLatitude = 50.0755; // nahraď aktuálními hodnotami
-    var customerLongitude = 14.4378;
-
-    L.marker([customerLatitude, customerLongitude]).addTo(map)
-        .bindPopup('Zákazník zde').openPopup();
+    // Číslení řádků
+    const rows = document.querySelectorAll('table.zakaznici-table tbody tr');
+    rows.forEach(function(row, index) {
+        // Vloží číslo do první buňky
+        let cell = row.querySelector('td');
+        if (cell) {
+            cell.textContent = index + 1;
+        }
+    });
 });
+
+
