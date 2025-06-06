@@ -12,14 +12,17 @@ class ZakazniciForm(forms.Form):
         return int(id_sap)
 
     # vytvoříme formular s jednotlivymi vstupy
-    id_sap = forms.IntegerField(label="ID SAP", widget=forms.TextInput(attrs={"placeholder": "ID SAP = Zadejte 10 číslic",
-                                                                              "pattern": "\d{10}",
-                                                                              "title": "Zadejte přesně 10 číslic"
-                                                                              }))
+    id_sap = forms.IntegerField(label="ID SAP",
+                                widget=forms.TextInput(attrs={"placeholder": "ID SAP = Zadejte 10 číslic",
+                                                              "pattern": "\d{10}",
+                                                              "title": "Zadejte přesně 10 číslic"
+                                                              }))
     nazev = forms.CharField(label="Název zákazníka", widget=forms.TextInput(attrs={"placeholder": "Název zákazníka"}))
     mesto = forms.CharField(label="Mesto", widget=forms.TextInput(attrs={"placeholder": "Město"}))
     ulice = forms.CharField(label="Ulice", widget=forms.TextInput(attrs={"placeholder": "Ulice"}))
     poznamka = forms.CharField(label="Poznamka", required=False,
                                widget=forms.TextInput(attrs={"placeholder": "Poznámka (nepovinné)"}))
-    latitude = forms.FloatField(label="Latitude", widget=forms.TextInput(attrs={"placeholder": "Šířka 50,..."}))
-    longitude = forms.FloatField(label="Longitude", widget=forms.TextInput(attrs={"placeholder": "Délka 15,..."}))
+    latitude = forms.FloatField(label="Latitude",
+                                widget=forms.TextInput(attrs={"placeholder": "GPS šířka 50. (musí být tečka)"}))
+    longitude = forms.FloatField(label="Longitude",
+                                 widget=forms.TextInput(attrs={"placeholder": "GPS délka 14. (musí být tečka)"}))

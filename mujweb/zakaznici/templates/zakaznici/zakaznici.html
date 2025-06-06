@@ -7,31 +7,40 @@
     <meta charset="UTF-8">
     <title>Zákazníci</title>
     <link rel="stylesheet" href="{% static 'zakaznici/zakaznici.css' %}">
+    <!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 
 
 <body>
+    <div class="top-container">
+        <section class="container_formular">
+            <h1>Vložit zákazníka do databáze</h1>
+            <form method="POST" action="/" id="zakaznik-form">
+                <!--Vložení csrf tokuneu pro zabezpečení formuláře -->
+                {% csrf_token %}
+                <!-- Vypsání jednotlivých vstupů z formuláře pomocí smyčky for -->
+                {% for one_field in zakazniciForm %}
+                <div class="form-group">
+                    {{ one_field }}
+                </div>
+                {% endfor %}
+                <button type="submit" id="submit-btn">Odeslat</button>
+            </form>
+        </section>
 
-    <section class="container_formular">
-        <h1>Vložit zákazníka do databáze</h1>
-        <form method="POST" action="/" id="zakaznik-form">
-            <!--Vložení csrf tokuneu pro zabezpečení formuláře -->
-            {% csrf_token %}
-            <!-- Vypsání jednotlivých vstupů z formuláře pomocí smyčky for -->
-            {% for one_field in zakazniciForm %}
-            <div class="form-group">
-                {{ one_field }}
-            </div>
-            {% endfor %}
-            <button type="submit" id="submit-btn">Odeslat</button>
-        </form>
-    </section>
+        <section class="container_stred">
 
-    <section class="container_maps">
+        </section>
 
+        <section class="container_maps">
+            <div id="map"></div>
+        </section>
+    </div>
 
-    </section>
 
     <!-- Sekce s tabulkou zákazníků -->
     <section class="container_tabulka">
@@ -69,6 +78,7 @@
     </section>
 
 <script src="{% static 'zakaznici/zakaznici.js' %}"></script>
+
 </body>
 
 
