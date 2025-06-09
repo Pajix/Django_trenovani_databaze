@@ -7,116 +7,23 @@
 
 /*
 --------------------------------------------------------------------------------------------------------------------
-Tady je styl pro tělo HTML = body*
-*/
-body {
-    background-color: #141414;
-    color: #e0e0e0;
-    padding: 3px 10px;
-    line-height: 1.2;
-    overflow: hidden; /* Zabraňuje scrollování celé stránky */
-    height: 100vh; /* Zajišťuje, že body zabírá celou výšku viewportu */
-    display: flex; /* Použijeme flexbox pro rozvržení stránky */
-    flex-direction: column; /* Položky se budou řadit pod sebe */
-}
-
-/*
---------------------------------------------------------------------------------------------------------------------
-Tady je styl pro hlavicku*
-*/
-header {
-    background: linear-gradient(135deg, #343434 0%, #2d3748 50%, #4CAF50 100%);
-    animation: gradient 8s ease infinite;
-    color: #e0e0e0;
-    padding: 5px;
-    text-align: center;
-    border-radius: 10px;
-    flex-shrink: 0; /* Zabrání zmenšování headeru */
-}
-
-/*
---------------------------------------------------------------------------------------------------------------------
-Základní styl navigace
- */
-nav ul {
-    display: flex;
-    gap: 5px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-/* Styl pro jednotlivé položky menu */
-nav ul li {
-    position: relative;
-}
-
-/* Základní styl tlačítek */
-nav ul li a {
-    display: inline-block;
-    padding: 10px 20px;
-    text-decoration: none;
-    color: #f8f8f8;
-    background-color: #2d2d2d;
-    border-radius: 10px;
-    font-weight: 500;
-    font-size: 16px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border: 1px solid #444;
-}
-
-/* Hover efekt */
-nav ul li a:hover {
-    background-color: #4CAF50;
-    color: white;
-    transform: translateY(-4px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-decoration: none;
-}
-
-/* Aktivní stav */
-nav ul li a:active {
-    transform: translateY(0);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-/* Efekt podtržení při hoveru */
-nav ul li a::after {
-    content: '';
-    position: absolute;
-    bottom: 8px;
-    left: 24px;
-    width: calc(100% - 48px);
-    height: 2px;
-    background: #4CAF50;
-    transform: scaleX(0);
-    transition: transform 0.5s ease;
-}
-
-nav ul li a:hover::after {
-    transform: scaleX(1);
-}
-
-/*
---------------------------------------------------------------------------------------------------------------------
 Tady styluju hlavní kontainer, který obsahuje formulář, prostředek a mapu
 */
 .top-container {
     display: flex;
-    gap: 20px;
-    margin-top: 20px;
-    flex-grow: 1; /* Umožní tomuto kontejneru zabírat dostupný prostor */
-    min-height: 0; /* Důležité pro správné fungování flex-grow v některých prohlížečích */
+    gap: 10px;
+    flex: 1;
+    min-height: 0; /* Důležité */
+    height: 100%; /* Nově přidáno */
+    max-height: 330px;
 }
-
 
 /* Moderní formulář */
 .container_formular {
     background: #1e1e1e;
     width: 300px;
     flex-shrink: 0;
-    padding: 15px;
+    padding: 10px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     border: 1px solid #333;
@@ -126,13 +33,13 @@ Tady styluju hlavní kontainer, který obsahuje formulář, prostředek a mapu
 
 .container_formular h1 {
     color: #4CAF50;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     font-size: 17px;
     text-align: center;
 }
 
 .form-group {
-    margin-bottom: 5px;
+    margin-bottom: 2px;
 }
 
 .form-group input {
@@ -178,8 +85,8 @@ button[type="submit"]:hover {
 /* Moderní tabulka s pevným počtem řádků */
 .container_tabulka {
     background: #1e1e1e;
-    margin: 20px 0;
-    padding: 0 15px 15px;
+    margin: 10px 0 0 0;
+    padding: 0 15px 5px 15px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     border: 1px solid #333;
@@ -194,9 +101,9 @@ button[type="submit"]:hover {
     overflow-y: auto;
     border: 1px solid #333;
     border-radius: 5px;
-    flex-grow: 1;
+    flex: 1;
     min-height: 0;
-    height: 0; /* Důležité: toto vytvoří flex-item, který zabírá veškerý dostupný prostor */
+    height: 100%; /* Důležité: toto vytvoří flex-item, který zabírá veškerý dostupný prostor */
 }
 
 .zakaznici-table {
@@ -249,58 +156,6 @@ button[type="submit"]:hover {
     background: #2d2d2d;
 }
 
-/* Původní styly zůstávají, přidáme jen media query */
-@media (max-width: 700px) {
-    .top-container {
-        flex-direction: column; /* Na menších obrazovkách se kontejnery řadí pod sebe */
-        margin-top: 10px;
-    }
-
-    .container_formular {
-        width: 100%; /* Na malé obrazovce zabere celou šířku */
-        max-height: none; /* Odstraníme max-height, pokud je potřeba víc místa */
-        overflow-y: visible; /* Změníme zpět na visible */
-    }
-
-    .container_tabulka {
-        height: auto; /* Odstranění pevné výšky */
-        max-height: 50vh; /* Maximální výška, aby tabulka nezabírala příliš mnoho místa */
-        padding: 10px; /* Menší padding */
-        margin-top: 10px; /* Menší odsazení */
-    }
-
-    .zakaznici-table-wrapper {
-        max-height: none; /* Dovolíme mu zabrat veškerý prostor, který má k dispozici */
-    }
-
-    .zakaznici-table th,
-    .zakaznici-table td {
-        padding: 4px 2px; /* Kompaktnější padding */
-        font-size: 12px; /* Menší písmo */
-    }
-
-    /* Úprava šířky sloupců pro mobil */
-    #hlavicka_pocet { width: 30px; }
-    #hlavicka_id { width: 80px; }
-    #hlavicka_mesto { width: 120px; }
-    #hlavicka_latitude,
-    #hlavicka_longitude { width: 80px; }
-
-    /* Skrytí méně důležitých sloupců na velmi malých obrazovkách */
-    @media (max-width: 480px) {
-        #hlavicka_poznamka,
-        #hlavicka_latitude,
-        #hlavicka_longitude {
-            display: none;
-        }
-        .zakaznici-table td:nth-child(6),
-        .zakaznici-table td:nth-child(7),
-        .zakaznici-table td:nth-child(8) {
-            display: none;
-        }
-    }
-}
-
 .container_stred {
     background: #1e1e1e;
     flex-grow: 1;
@@ -321,7 +176,7 @@ button[type="submit"]:hover {
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     border: 1px solid #333;
-    min-height: 200px; /* Minimální výška */
+    min-height: 0; /* Minimální výška */
     padding: 0; /* Odstranění vnitřního odsazení */
 }
 
