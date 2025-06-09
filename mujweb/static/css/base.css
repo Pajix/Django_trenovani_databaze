@@ -1,9 +1,8 @@
 /* Základní reset a typografie */
-* {
+html, body {
+    height: 100%;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /*
@@ -13,12 +12,12 @@ Tady je styl pro tělo HTML = body*
 body {
     background-color: #141414;
     color: #e0e0e0;
-    padding: 3px 10px;
+    padding: 0 10px 10px;
     line-height: 1.2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     overflow: hidden; /* Zabraňuje scrollování celé stránky */
-    height: 100vh; /* Zajišťuje, že body zabírá celou výšku viewportu */
-    display: flex; /* Použijeme flexbox pro rozvržení stránky */
-    flex-direction: column; /* Položky se budou řadit pod sebe */
 }
 
 /*

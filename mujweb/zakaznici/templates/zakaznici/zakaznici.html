@@ -49,6 +49,7 @@
 
     <!-- Sekce s tabulkou zákazníků -->
     <section class="container_tabulka">
+        <div class="zakaznici-table-wrapper">
         {% if zakaznici %}
             <table class="zakaznici-table">
                 <thead>
@@ -81,6 +82,7 @@
         {% else %}
             <p>Žádní zákazníci nebyli nalezeni.</p>
         {% endif %}
+        </div>
     </section>
 {% endblock content %}
 

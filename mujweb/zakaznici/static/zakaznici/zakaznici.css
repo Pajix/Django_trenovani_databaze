@@ -1,3 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/*
+--------------------------------------------------------------------------------------------------------------------
+Tady je styl pro tělo HTML = body*
+*/
+body {
+    background-color: #141414;
+    color: #e0e0e0;
+    padding: 3px 10px;
+    line-height: 1.2;
+    overflow: hidden; /* Zabraňuje scrollování celé stránky */
+    height: 100vh; /* Zajišťuje, že body zabírá celou výšku viewportu */
+    display: flex; /* Použijeme flexbox pro rozvržení stránky */
+    flex-direction: column; /* Položky se budou řadit pod sebe */
+}
+
+/*
+--------------------------------------------------------------------------------------------------------------------
+Tady je styl pro hlavicku*
+*/
+header {
+    background: linear-gradient(135deg, #343434 0%, #2d3748 50%, #4CAF50 100%);
+    animation: gradient 8s ease infinite;
+    color: #e0e0e0;
+    padding: 5px;
+    text-align: center;
+    border-radius: 10px;
+    flex-shrink: 0; /* Zabrání zmenšování headeru */
+}
+
+/*
+--------------------------------------------------------------------------------------------------------------------
+Základní styl navigace
+ */
+nav ul {
+    display: flex;
+    gap: 5px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Styl pro jednotlivé položky menu */
+nav ul li {
+    position: relative;
+}
+
+/* Základní styl tlačítek */
+nav ul li a {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #f8f8f8;
+    background-color: #2d2d2d;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 16px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #444;
+}
+
+/* Hover efekt */
+nav ul li a:hover {
+    background-color: #4CAF50;
+    color: white;
+    transform: translateY(-4px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+}
+
+/* Aktivní stav */
+nav ul li a:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Efekt podtržení při hoveru */
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 24px;
+    width: calc(100% - 48px);
+    height: 2px;
+    background: #4CAF50;
+    transform: scaleX(0);
+    transition: transform 0.5s ease;
+}
+
+nav ul li a:hover::after {
+    transform: scaleX(1);
+}
+
 /*
 --------------------------------------------------------------------------------------------------------------------
 Tady styluju hlavní kontainer, který obsahuje formulář, prostředek a mapu
@@ -9,6 +109,7 @@ Tady styluju hlavní kontainer, který obsahuje formulář, prostředek a mapu
     flex-grow: 1; /* Umožní tomuto kontejneru zabírat dostupný prostor */
     min-height: 0; /* Důležité pro správné fungování flex-grow v některých prohlížečích */
 }
+
 
 /* Moderní formulář */
 .container_formular {
@@ -77,37 +178,25 @@ button[type="submit"]:hover {
 /* Moderní tabulka s pevným počtem řádků */
 .container_tabulka {
     background: #1e1e1e;
-    margin-top: 20px; /* Toto může tlačit tabulku dolů, zvážil bych margin-top na top-container */
-    padding: 0px 15px;
+    margin: 20px 0;
+    padding: 0 15px 15px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     border: 1px solid #333;
-    width: 100%;
-    /* Odstraníme pevnou výšku a budeme se spoléhat na flexbox a max-height */
-    /* height: 55%; */
-    overflow-x: auto; /* Horizontální scroll pro široké tabulky */
-    display: flex; /* Použijeme flexbox uvnitř pro správné rozložení */
-    flex-direction: column; /* Položky (h1 a wrapper) se budou řadit pod sebe */
-    flex-grow: 1; /* Umožní tabulce zabírat dostupný prostor */
-    min-height: 0; /* Důležité pro správné fungování flex-grow */
-}
-
-.container_tabulka h1 { /* Přidal jsem styl pro h1 uvnitř container_tabulka, pokud tam je */
-    flex-shrink: 0; /* Zabrání zmenšování nadpisu */
-    padding-top: 15px; /* Přidáme padding, aby nadpis nebyl nalepený nahoře */
-    padding-bottom: 15px;
-    color: #4CAF50;
-    font-size: 17px;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0; /* Důležité */
+    height: 100%; /* Důležité */
 }
 
 .zakaznici-table-wrapper {
-    /* max-height: 400px;  Toto je už nastaveno, ale dynamičtější řešení je lepší */
-    overflow-y: auto; /* Zajišťuje vertikální scroll uvnitř wrapperu */
+    overflow-y: auto;
     border: 1px solid #333;
     border-radius: 5px;
-    flex-grow: 1; /* Důležité: umožní wrapperu zabrat veškerý zbývající prostor */
-    min-height: 0; /* Důležité pro správné fungování flex-grow */
+    flex-grow: 1;
+    min-height: 0;
+    height: 0; /* Důležité: toto vytvoří flex-item, který zabírá veškerý dostupný prostor */
 }
 
 .zakaznici-table {
