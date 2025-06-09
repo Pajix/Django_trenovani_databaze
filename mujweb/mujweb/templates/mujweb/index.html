@@ -1,0 +1,19 @@
+{% extends 'base.html' %} {# Důležité: Tímto říkáte, že tato šablona rozšiřuje base.html #}
+{% load static %} {# Pokud používáte statické soubory, je to potřeba i zde #}
+
+{# Definován blok title pro titulek stránky #}
+{% block title %}Zákazníci - Moje Aplikace{% endblock title %}
+
+{# Zde můžete přidat CSS specifické pro tuto stránku, pokud by bylo potřeba #}
+{% block extra_css %}
+{# <link rel="stylesheet" href="{% static 'zakaznici/zakaznici.css' %}"> #}
+{% endblock extra_css %}
+
+{# Blok content, do kterého se vloží veškerý unikátní obsah stránky #}
+{% block content %}
+
+{% endblock content %}
+
+{# Zde vložíme JavaScript specifický pro tuto stránku #}
+{% block extra_js %}
+{% endblock extra_js %}

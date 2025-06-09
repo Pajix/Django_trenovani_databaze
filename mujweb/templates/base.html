@@ -1,0 +1,45 @@
+{% load static %}
+
+{{ '<' }}{{ '!DOCTYPE html>' }}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Můj web{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+<!--    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />-->
+<!--     Místo pro další CSS soubory specifické pro podstránky -->
+    {% block extra_css %}{% endblock extra_css %}
+    {% block extra_js_head %}{% endblock extra_js_head %}
+</head>
+
+<body>
+
+    <header class="hlavicka">
+        <nav>
+            <ul>
+                <li><a href="#">Domů</a></li>
+                <li><a href="#">Zákazníci</a></li>
+                <li><a href="#">Porfolio</a></li>
+                <li><a href="#">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    {# Hlavní obsah stránky se vloží sem #}
+    <main>
+        {% block content %}
+        {# Sem se vloží specifický obsah každé stránky #}
+        {% endblock content %}
+    </main>
+
+<!--    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>-->
+    {# Hlavní JavaScript soubor pro celou aplikaci #}
+<!--    <script src="{% static 'zakaznici/zakaznici.js' %}"></script>-->
+
+    {# Místo pro další JavaScript soubory specifické pro podstránky (na konci body pro lepší výkon) #}
+    {% block extra_js %}{% endblock extra_js %}
+
+</body>
+</html>
